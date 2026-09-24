@@ -1,16 +1,26 @@
 const http = require('node:http');
 
-//const user = {
-//    name: 'Farias João',
-//    email: 'tes@example.com'
-//};
-
 http.createServer((request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
-    response.writeHead(200, {'content-type': 'application/json'});
-    response.end(JSON.stringify({
-        nome: 'farias joão',
-        email: 'farias.sousa@exemplo.com'
-    }));
 
+    if (request.url !== '/users') {
+    response.writeHead(
+        404,
+        { 'content-type': 'application/json' }
+    );
+    response.end(JSON.stringify ({ message: 'Não existente.' }));
+    return;
+    }
+    
+    response.writeHead(200, {'content-type': 'application/json'});
+    response.end(JSON.stringify([{
+    name: 'Régis Pinheiro',
+    email: 'pregis007@gmail.com'
+}, {
+    name: 'Thayane',
+    email: 'thayanedomingos@gmail.com'
+}, {
+    name: 'Aline',
+    email: 'Alinebrauna@gmail.com'
+}]));
 }).listen(3000);
